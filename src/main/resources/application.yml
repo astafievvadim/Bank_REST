@@ -1,0 +1,23 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5433/bc_db
+    username: bc_postgres_user
+    password: bc_postgres_password
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        format_sql: true
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+key:
+  card_secret_value: 1234567890abcdef
+  card_expiration: 4
+  jwt_expiration: 86400000
+  jwt_secret_value: thisIsASecretKeyForJwtTokenThatIsDefinitelyLongerThanThirtyTwoChars

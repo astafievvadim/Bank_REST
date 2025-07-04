@@ -1,0 +1,23 @@
+services:
+
+  bankcards_postgres_db:
+    image: postgres:16
+    container_name: bankcards_postgres_db
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_USER: bc_postgres_user
+      POSTGRES_PASSWORD: bc_postgres_password
+      POSTGRES_DB: bc_db
+      PGDATA: /var/lib/postgresql/data
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    networks:
+      - bc-net
+
+volumes:
+  pg_data:
+
+networks:
+  bc-net:
+    driver: bridge
