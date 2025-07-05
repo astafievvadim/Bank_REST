@@ -3,6 +3,7 @@ package com.example.bankcards.service;
 import com.example.bankcards.dto.*;
 import com.example.bankcards.entity.*;
 import com.example.bankcards.exception.InsufficientFundsException;
+import com.example.bankcards.exception.InvalidRequestException;
 import com.example.bankcards.exception.NotFoundException;
 import com.example.bankcards.exception.UnauthorizedTransferException;
 import com.example.bankcards.repository.BlockCardRequestRepo;
@@ -11,10 +12,10 @@ import com.example.bankcards.repository.TransferRepo;
 import com.example.bankcards.repository.CustomUserRepo;
 import com.example.bankcards.util.EncryptionUtil;
 import com.example.bankcards.util.UuidUtils;
+import io.jsonwebtoken.InvalidClaimException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cglib.core.Block;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -23,7 +24,6 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -75,12 +75,20 @@ public class CardServiceImpl implements CardService{
     }
 
     @Override
-    public CardDto getCardById(Long cardId) {
+    public CardDto getCardDtoById(Long cardId) {
 
         Card card = cardRepo.findById(cardId)
                 .orElseThrow(() -> new NotFoundException("Card not found"));
 
         return toDto(card);
+    }
+
+    @Override
+    public Card getCardById(Long cardId) {
+        Card card = cardRepo.findById(cardId)
+                .orElseThrow(() -> new NotFoundException("Card not found"));
+
+        return card;
     }
 
     @Override
@@ -154,7 +162,7 @@ public class CardServiceImpl implements CardService{
     }
 
     @Override
-    public void transfer(TransferRequestDto dto) {
+    public void transfer(Long userId, TransferRequestDto dto) {
 
         Card from = cardRepo.findById(dto.getFromCardId())
                 .orElseThrow(() -> new NotFoundException("Card not found"));
@@ -168,8 +176,12 @@ public class CardServiceImpl implements CardService{
             throw new UnauthorizedTransferException("Cannot transfer between different users' cards");
         }
 
+        if(!from.getUser().getId().equals(userId)){
+            throw new UnauthorizedTransferException("Not authorized to transfer between these cards");
+        }
+
         if (amount.compareTo(BigDecimal.ZERO) <= 0) {
-            throw new IllegalArgumentException("Transfer amount must be positive");
+            throw new InvalidRequestException("Transfer amount must be positive");
         }
 
         if (from.getBalance().compareTo(amount) < 0) {

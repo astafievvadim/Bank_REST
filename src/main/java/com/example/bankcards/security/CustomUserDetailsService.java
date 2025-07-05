@@ -1,4 +1,4 @@
-package com.example.bankcards.service;
+package com.example.bankcards.security;
 
 import com.example.bankcards.repository.CustomUserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
