@@ -6,10 +6,7 @@ Backend-приложение на Java (Spring Boot) для управления
 
 ## Сущности проекта
 
-![image](https://github.com/user-attachments/assets/2e64904a-805c-4390-b604-0803995ec6dd)
-![bankpng](https://github.com/user-attachments/assets/3ecf9dc8-65f2-428c-a827-e23db697c758)
-![finalbankpng](https://github.com/user-attachments/assets/8d9fed7a-44c7-48a7-9aa2-c9a185b1460e)
-
+![bank_erd](https://github.com/user-attachments/assets/bf8b44bd-e624-4b4f-ab61-7f1a4cf59562)
 
 ## Используемые технологии
 
@@ -31,9 +28,8 @@ Backend-приложение на Java (Spring Boot) для управления
 
 1. Клонировать репозиторий:
 
-   ```bash
-   git clone https://github.com/your-repo/bankcards-management.git
-   cd bankcards-management
+   git clone https://github.com/astafievvadim/Bank_REST.git
+   cd Bank_REST
    
 По умолчанию в src/main/resources/application.yml уже указаны актуальные настройки для работы в контейнере.
 
