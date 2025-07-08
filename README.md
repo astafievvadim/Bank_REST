@@ -29,6 +29,7 @@ Backend-приложение на Java (Spring Boot) для управления
 1. Клонировать репозиторий:
 
    git clone https://github.com/astafievvadim/Bank_REST.git
+   
    cd Bank_REST
    
 По умолчанию в src/main/resources/application.yml уже указаны актуальные настройки для работы в контейнере.
