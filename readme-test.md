@@ -6,6 +6,9 @@ Backend-приложение на Java (Spring Boot) для управления
 
 ## Сущности проекта
 
+![image](https://github.com/user-attachments/assets/2e64904a-805c-4390-b604-0803995ec6dd)
+![bankpng](https://github.com/user-attachments/assets/3ecf9dc8-65f2-428c-a827-e23db697c758)
+![finalbankpng](https://github.com/user-attachments/assets/8d9fed7a-44c7-48a7-9aa2-c9a185b1460e)
 
 
 ## Используемые технологии
@@ -32,7 +35,7 @@ Backend-приложение на Java (Spring Boot) для управления
    git clone https://github.com/your-repo/bankcards-management.git
    cd bankcards-management
    
-   По умолчанию в src/main/resources/application.yml уже указаны актуальные настройки для работы в контейнере.
+По умолчанию в src/main/resources/application.yml уже указаны актуальные настройки для работы в контейнере.
 
 2. Запустить сборку и запуск контейнеров:
 
