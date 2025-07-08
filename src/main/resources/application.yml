@@ -8,9 +8,15 @@ spring:
     password: bc_postgres_password
     driver-class-name: org.postgresql.Driver
 
+  liquibase:
+    enabled: true
+    drop-first: false
+    clear-check-sums: true
+    change-log: classpath:/db/migration/db.changelog-master.yaml
+
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: none
     properties:
       hibernate:
         format_sql: true
@@ -21,3 +27,7 @@ key:
   card_expiration: 4
   jwt_expiration: 86400000
   jwt_secret_value: thisIsASecretKeyForJwtTokenThatIsDefinitelyLongerThanThirtyTwoChars
+
+springdoc:
+  api-docs:
+    path: /v3/openapi

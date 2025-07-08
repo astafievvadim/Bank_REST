@@ -1,0 +1,9 @@
+databaseChangeLog:
+  - changeSet:
+      id: change-column-role
+      author: Vadim
+      changes:
+        - renameColumn:
+            tableName: custom_user
+            newColumnName: role
+            oldColumnName: role_enum

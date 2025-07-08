@@ -12,7 +12,7 @@ import java.util.List;
 public class CustomUser implements UserDetails {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private Long id;
 
@@ -23,7 +23,7 @@ public class CustomUser implements UserDetails {
     private Date birthDate;
 
     @Enumerated(EnumType.STRING)
-    private RoleEnum roleEnum;
+    private RoleEnum role;
 
     private String email;
 
@@ -34,12 +34,12 @@ public class CustomUser implements UserDetails {
 
     private Date registrationDate;
 
-    public CustomUser(Long id, String name, String lastname, Date birthDate, RoleEnum roleEnum, String email, String password, List<Card> cards, Date registrationDate) {
+    public CustomUser(Long id, String name, String lastname, Date birthDate, RoleEnum role, String email, String password, List<Card> cards, Date registrationDate) {
         this.id = id;
         this.name = name;
         this.lastname = lastname;
         this.birthDate = birthDate;
-        this.roleEnum = roleEnum;
+        this.role = role;
         this.email = email;
         this.password = password;
         this.cards = cards;
@@ -82,11 +82,11 @@ public class CustomUser implements UserDetails {
     }
 
     public RoleEnum getRole() {
-        return roleEnum;
+        return role;
     }
 
     public void setRole(RoleEnum roleEnum) {
-        this.roleEnum = roleEnum;
+        this.role = roleEnum;
     }
 
     public String getEmail() {
@@ -124,7 +124,7 @@ public class CustomUser implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(roleEnum.name()));
+        return List.of(new SimpleGrantedAuthority(role.name()));
     }
 
     @Override

@@ -12,13 +12,13 @@ import com.example.bankcards.repository.TransferRepo;
 import com.example.bankcards.repository.CustomUserRepo;
 import com.example.bankcards.util.EncryptionUtil;
 import com.example.bankcards.util.UuidUtils;
-import io.jsonwebtoken.InvalidClaimException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -26,8 +26,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
-//@todo check status of the card beforehand
 
 @Service
 @Transactional
@@ -163,23 +161,29 @@ public class CardServiceImpl implements CardService{
 
     @Override
     public void transfer(Long userId, TransferRequestDto dto) {
-
         Card from = cardRepo.findById(dto.getFromCardId())
                 .orElseThrow(() -> new NotFoundException("Card not found"));
 
         Card to = cardRepo.findById(dto.getToCardId())
                 .orElseThrow(() -> new NotFoundException("Card not found"));
 
-        BigDecimal amount = dto.getAmount();
-
         if (!from.getUser().equals(to.getUser())) {
             throw new UnauthorizedTransferException("Cannot transfer between different users' cards");
         }
 
-        if(!from.getUser().getId().equals(userId)){
+        if (!from.getUser().getId().equals(userId)) {
             throw new UnauthorizedTransferException("Not authorized to transfer between these cards");
         }
 
+        if (!isValid(from)) {
+            throw new InvalidRequestException("Source card is not valid for transfers");
+        }
+
+        if (!isValid(to)) {
+            throw new InvalidRequestException("Target card is not valid for transfers");
+        }
+
+        BigDecimal amount = dto.getAmount();
         if (amount.compareTo(BigDecimal.ZERO) <= 0) {
             throw new InvalidRequestException("Transfer amount must be positive");
         }
@@ -226,10 +230,17 @@ public class CardServiceImpl implements CardService{
         blockCardRequestRepo.save(bcr);
     }
 
-    private boolean isValid(Card card){
+    private boolean isValid(Card card) {
+        return card.getStatus() == CardStatusEnum.ACTIVE
+                && (card.getExpirationDate() == null || !card.getExpirationDate().isBefore(LocalDate.now()));
+    }
 
-
-
-        return card.getStatus() == CardStatusEnum.ACTIVE;
+    @Scheduled(cron = "0 0 0 * * *")
+    public void expireCards() {
+        List<Card> cardsToExpire = cardRepo.findByStatusAndExpirationDateBefore(CardStatusEnum.ACTIVE, LocalDate.now());
+        for (Card card : cardsToExpire) {
+            card.setStatus(CardStatusEnum.EXPIRED);
+        }
+        cardRepo.saveAll(cardsToExpire);
     }
 }

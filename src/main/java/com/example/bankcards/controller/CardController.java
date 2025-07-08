@@ -49,7 +49,6 @@ public class CardController {
         return ResponseEntity.ok(cardService.getCardDtoById(cardId).getBalance());
     }
 
-    // Block a card
     @PostMapping("/{cardId}/block")
     public ResponseEntity<Void> blockCard(
             @PathVariable Long cardId,
@@ -62,7 +61,6 @@ public class CardController {
         return ResponseEntity.ok().build();
     }
 
-    // Transfer between cards
     @PostMapping("/transfer")
     public ResponseEntity<Void> transfer(
             @RequestBody TransferRequestDto dto,

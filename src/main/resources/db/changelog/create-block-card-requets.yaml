@@ -1,0 +1,52 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-block-card-request
+      author: Vadim
+      changes:
+        - createTable:
+            tableName: block_card_request
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: card_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: user_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: requested_at
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: status
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: comment
+                  type: VARCHAR(500)
+                  constraints:
+                    nullable: true
+        - addForeignKeyConstraint:
+            baseTableName: block_card_request
+            baseColumnNames: card_id
+            constraintName: fk_block_request_card
+            referencedTableName: card
+            referencedColumnNames: id
+        - addForeignKeyConstraint:
+            baseTableName: block_card_request
+            baseColumnNames: user_id
+            constraintName: fk_block_request_user
+            referencedTableName: custom_user
+            referencedColumnNames: id

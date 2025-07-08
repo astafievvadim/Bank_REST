@@ -1,0 +1,47 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-transfer
+      author: Vadim
+      changes:
+        - createTable:
+            tableName: transfer
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: from_card_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: to_card_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: amount
+                  type: DECIMAL(19,2)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: timestamp
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseTableName: transfer
+            baseColumnNames: from_card_id
+            constraintName: fk_transfer_from_card
+            referencedTableName: card
+            referencedColumnNames: id
+        - addForeignKeyConstraint:
+            baseTableName: transfer
+            baseColumnNames: to_card_id
+            constraintName: fk_transfer_to_card
+            referencedTableName: card
+            referencedColumnNames: id

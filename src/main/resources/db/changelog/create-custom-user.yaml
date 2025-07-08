@@ -1,0 +1,50 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-custom-user
+      author: Vadim
+      changes:
+        - createTable:
+            tableName: custom_user
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: lastname
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: birth_date
+                  type: DATE
+                  constraints:
+                    nullable: false
+              - column:
+                  name: role_enum
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: email
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: password
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: registration_date
+                  type: DATE
+                  constraints:
+                    nullable: false

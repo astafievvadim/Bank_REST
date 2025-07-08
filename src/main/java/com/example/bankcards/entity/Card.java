@@ -12,21 +12,22 @@ public class Card implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String encryptedUuid;
     @ManyToOne
     @JoinColumn(name = "user_id")
     private CustomUser user;
     private LocalDate expirationDate;
     @Enumerated(EnumType.STRING)
-    private CardStatusEnum cardStatusEnum;
+    private CardStatusEnum status;
     private BigDecimal balance;
 
-    public Card(Long id, String encryptedUuid, CustomUser user, LocalDate expirationDate, CardStatusEnum cardStatusEnum, BigDecimal balance) {
+    public Card(Long id, String encryptedUuid, CustomUser user, LocalDate expirationDate, CardStatusEnum status, BigDecimal balance) {
         this.id = id;
         this.encryptedUuid = encryptedUuid;
         this.user = user;
         this.expirationDate = expirationDate;
-        this.cardStatusEnum = cardStatusEnum;
+        this.status = status;
         this.balance = balance;
     }
 
@@ -71,11 +72,11 @@ public class Card implements Serializable {
     }
 
     public CardStatusEnum getStatus() {
-        return cardStatusEnum;
+        return status;
     }
 
     public void setStatus(CardStatusEnum cardStatusEnum) {
-        this.cardStatusEnum = cardStatusEnum;
+        this.status = cardStatusEnum;
     }
 
     public BigDecimal getBalance() {

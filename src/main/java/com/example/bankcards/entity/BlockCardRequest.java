@@ -12,9 +12,11 @@ public class BlockCardRequest {
     private Long id;
 
     @ManyToOne
+    @JoinColumn(name = "card_id")
     private Card card;
 
     @ManyToOne
+    @JoinColumn(name = "user_id")
     private CustomUser user;
 
     private LocalDateTime requestedAt;
