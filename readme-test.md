@@ -6,7 +6,7 @@ Backend-приложение на Java (Spring Boot) для управления
 
 ## Сущности проекта
 
-![bank_erd](https://github.com/user-attachments/assets/bf8b44bd-e624-4b4f-ab61-7f1a4cf59562)
+![bank_erd](https://github.com/user-attachments/assets/2e8c3110-97aa-422d-b9ac-64005c9f8b4f)
 
 ## Используемые технологии
 
