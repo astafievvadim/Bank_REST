@@ -53,7 +53,7 @@ public class DatabaseSeeder {
                 customUserRepo.save(customUser);
                 customUsers.add(customUser);
 
-                System.out.println("USER TO TRY: " + "customUser"+i+"@mail.com " + "password"+i);
+                System.out.println("USER TO TRY: " + "customUser" + i + "@mail.com " + "password"+i);
             }
 
             for (CustomUser customUser : customUsers) {

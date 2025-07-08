@@ -17,7 +17,6 @@ public interface CardRepo extends PagingAndSortingRepository<Card,Long> {
     List<Card> findAllByUser(CustomUser customUser, Pageable pageable);
     Optional<Card> findById(Long cardId);
     List<Card> findAll();
-    Card save(Card from);
     boolean existsById(Long cardId);
     void deleteById(Long cardId);
     List<Card> findByStatusAndExpirationDateBefore(CardStatusEnum active, LocalDate now);
