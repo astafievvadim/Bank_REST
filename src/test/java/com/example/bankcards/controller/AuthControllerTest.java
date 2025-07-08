@@ -3,6 +3,7 @@ package com.example.bankcards.controller;
 import com.example.bankcards.dto.AuthRequestDto;
 import com.example.bankcards.dto.AuthResponseDto;
 import com.example.bankcards.entity.CustomUser;
+import com.example.bankcards.repository.CustomUserRepo;
 import com.example.bankcards.security.CustomUserDetailsService;
 import com.example.bankcards.security.JwtUtil;
 import org.junit.jupiter.api.BeforeEach;
@@ -19,24 +20,27 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 class AuthControllerTest {
-
     @Mock
     private AuthenticationManager authenticationManager;
 
     @Mock
+    private CustomUserRepo userRepo;
+
     private CustomUserDetailsService userDetailsService;
 
     @Mock
     private JwtUtil jwtUtil;
 
-    @InjectMocks
     private AuthController authController;
 
     private MockMvc mockMvc;
 
+
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
+        userDetailsService = spy(new CustomUserDetailsService(userRepo));
+        authController = new AuthController(authenticationManager, userDetailsService, jwtUtil);
         mockMvc = MockMvcBuilders.standaloneSetup(authController).build();
     }
 

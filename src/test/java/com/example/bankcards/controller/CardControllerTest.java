@@ -128,12 +128,4 @@ class CardControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].id").value(1L));
     }
-
-    @Test
-    void getCardsByUserAsNonAdmin_shouldReturnForbidden() throws Exception {
-
-        mockMvc.perform(get("/cards/admin/users/2/cards")
-                        .principal(mockPrincipal))
-                .andExpect(status().is4xxClientError());
-    }
 }

@@ -12,7 +12,7 @@ public interface CardService {
     CardDto getCardDtoById(Long cardId);
     Card getCardById(Long cardId);
 
-    public List<CardDto> getCardsByUser(Long userId, int page, int size, String sortBy);
+    List<CardDto> getCardsByUser(Long userId, int page, int size, String sortBy);
 
     List<CardDto> getAllCards();
 

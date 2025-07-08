@@ -14,7 +14,6 @@ import org.mockito.*;
 import org.springframework.http.ResponseEntity;
 
 import java.security.Principal;
-import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,15 +27,11 @@ public class AdminControllerTest {
     private AdminController adminController;
 
     @Mock
-    private UserService userService;
-
-    @Mock
     private CustomUserRepo userRepo;
 
     @Mock
     private BlockCardRequestService blockRequestService;
 
-    @Mock
     private Principal principal;
 
     private CustomUser adminUser;
@@ -50,7 +45,8 @@ public class AdminControllerTest {
         adminUser.setEmail("admin@example.com");
         adminUser.setRole(RoleEnum.ADMIN);
 
-        when(principal.getName()).thenReturn(adminUser.getEmail());
+        principal = () -> adminUser.getEmail();
+
         when(userRepo.findByEmail(adminUser.getEmail())).thenReturn(Optional.of(adminUser));
     }
 

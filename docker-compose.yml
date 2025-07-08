@@ -1,5 +1,4 @@
 services:
-
   bankcards_postgres_db:
     image: postgres:16
     container_name: bankcards_postgres_db
@@ -12,6 +11,18 @@ services:
       PGDATA: /var/lib/postgresql/data
     volumes:
       - pg_data:/var/lib/postgresql/data
+    networks:
+      - bc-net
+
+  bankcards_app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: bankcards_app
+    ports:
+      - "8080:8080"
+    depends_on:
+      - bankcards_postgres_db
     networks:
       - bc-net
 

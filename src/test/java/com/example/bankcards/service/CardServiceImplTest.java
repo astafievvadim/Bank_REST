@@ -18,15 +18,14 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class CardServiceImplTest {
-
+    @Mock
+    private EncryptionUtil encryptionUtil = new EncryptionUtil("verySecretValueForTestPurposes");
     @Mock
     private CardRepo cardRepo;
     @Mock
     private CustomUserRepo customUserRepo;
     @Mock
-    private EncryptionUtil encryptionUtil;
-    @Mock
-    private UuidUtils uuidUtil;
+    private UuidUtils uuidUtil = new UuidUtils();
     @Mock
     private TransferRepo transferRepo;
     @Mock

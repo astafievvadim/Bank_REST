@@ -1,5 +1,6 @@
 package com.example.bankcards.exception;
 
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -7,6 +8,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import java.io.IOException;
+import java.nio.file.AccessDeniedException;
 import java.time.LocalDateTime;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -20,6 +23,11 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
         return compileResponse(ex, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(AccessDeniedRuntimeException.class)
+    public ResponseEntity<Object> handleAccessDeniedRuntimeException(
+            AccessDeniedRuntimeException ex, WebRequest request) {
+        return compileResponse(ex, HttpStatus.BAD_REQUEST);
+    }
     @ExceptionHandler(InvalidRequestException.class)
     public ResponseEntity<Object> handleInvalidRequestException(
             InvalidRequestException ex, WebRequest request) {

@@ -4,6 +4,7 @@ import com.example.bankcards.entity.Card;
 import com.example.bankcards.entity.CardStatusEnum;
 import com.example.bankcards.entity.CustomUser;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
@@ -12,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface CardRepo extends PagingAndSortingRepository<Card,Long> {
+public interface CardRepo extends JpaRepository<Card,Long> {
 
     List<Card> findAllByUser(CustomUser customUser, Pageable pageable);
     Optional<Card> findById(Long cardId);

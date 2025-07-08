@@ -1,12 +1,5 @@
 package com.example.bankcards.dto;
 
-import com.example.bankcards.entity.Card;
-import com.example.bankcards.entity.CustomUser;
-import com.example.bankcards.entity.RequestStatusEnum;
-import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.persistence.*;
-
-import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 
 public class BlockCardRequestDto {

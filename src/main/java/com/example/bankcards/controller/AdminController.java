@@ -7,6 +7,7 @@ import com.example.bankcards.dto.UserDto;
 import com.example.bankcards.entity.BlockCardRequest;
 import com.example.bankcards.entity.CustomUser;
 import com.example.bankcards.entity.RoleEnum;
+import com.example.bankcards.exception.AccessDeniedRuntimeException;
 import com.example.bankcards.repository.CustomUserRepo;
 import com.example.bankcards.service.BlockCardRequestService;
 import com.example.bankcards.service.UserService;
@@ -14,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.nio.file.AccessDeniedException;
 import java.security.Principal;
 import java.util.List;
 
@@ -85,7 +87,7 @@ public class AdminController {
                 .orElseThrow(() -> new RuntimeException("Authenticated user not found"));
 
         if (currentUser.getRole() != RoleEnum.ADMIN) {
-            throw new RuntimeException("Access denied");
+            throw new AccessDeniedRuntimeException("Access denied");
         }
     }
     @GetMapping("/block-requests")

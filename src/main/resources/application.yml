@@ -3,7 +3,7 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5433/bc_db
+    url: jdbc:postgresql://bankcards_postgres_db:5432/bc_db
     username: bc_postgres_user
     password: bc_postgres_password
     driver-class-name: org.postgresql.Driver

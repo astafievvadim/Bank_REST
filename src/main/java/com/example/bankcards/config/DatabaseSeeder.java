@@ -1,6 +1,10 @@
 package com.example.bankcards.config;
 
-import com.example.bankcards.entity.*;
+
+import com.example.bankcards.entity.Card;
+import com.example.bankcards.entity.CardStatusEnum;
+import com.example.bankcards.entity.CustomUser;
+import com.example.bankcards.entity.RoleEnum;
 import com.example.bankcards.repository.CardRepo;
 import com.example.bankcards.repository.CustomUserRepo;
 import com.example.bankcards.util.EncryptionUtil;
